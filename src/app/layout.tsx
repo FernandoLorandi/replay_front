@@ -1,6 +1,6 @@
 import { DM_Sans } from 'next/font/google';
 import { ReactNode } from 'react';
-import { Metadata } from 'next';
+import { Metadata, Viewport } from 'next';
 import './globals.css';
 
 const dmSans = DM_Sans({
@@ -14,14 +14,21 @@ export const metadata: Metadata = {
   description: 'Produtora audiovisual Replay',
 };
 
+export const viewport: Viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  maximumScale: 1,
+  colorScheme: 'dark',
+};
+
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html
       lang="pt-br"
-      className={`${dmSans.variable} h-screen w-screen overflow-y-auto overflow-x-hidden`}
+      className={`${dmSans.variable} w-screen overflow-x-hidden overflow-y-auto`}
     >
-      <body className="antialiased h-full w-full overflow-y-auto overflow-x-hidden">
-        <main className="h-full w-full bg-zinc-950">{children}</main>
+      <body className="w-full overflow-x-hidden overflow-y-auto antialiased">
+        <main className="w-full">{children}</main>
       </body>
     </html>
   );
