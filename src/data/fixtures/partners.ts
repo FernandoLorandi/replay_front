@@ -7,12 +7,12 @@ export type Partner = {
 export const partners: Partner[] = [
   {
     name: 'Castrolanda',
-    logoSrc: '/castolanda.png',
+    logoSrc: '/castrolandaLogo.png',
     logoAlt: 'Logo Castrolanda',
   },
   {
     name: 'Copagri',
-    logoSrc: '/copagri.png',
+    logoSrc: '/copagriLogo.png',
     logoAlt: 'Logo Copagri',
   },
   {
@@ -22,7 +22,7 @@ export const partners: Partner[] = [
   },
   {
     name: 'Lojas MM',
-    logoSrc: '/lojasmm.png',
+    logoSrc: '/lojasmmLogo.png',
     logoAlt: 'Logo Lojas MM',
   },
 ];

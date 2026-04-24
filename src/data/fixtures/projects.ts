@@ -22,7 +22,7 @@ export const projects: Project[] = [
     slug: 'continental',
     title: 'Continental',
     category: 'Institucionais',
-    imageSrc: '/continental.png',
+    imageSrc: '/continentalImage.png',
     imageAlt: 'Campanha institucional da Continental',
     summary:
       'Narrativa de marca com acabamento cinematografico e foco em produto.',
@@ -31,7 +31,7 @@ export const projects: Project[] = [
     slug: 'castrolanda',
     title: 'Castrolanda',
     category: 'Reels',
-    imageSrc: '/castolanda.png',
+    imageSrc: '/castolandaLogo.png',
     imageAlt: 'Projeto publicitario da Castolanda',
     summary: 'Peca comercial com ritmo dinamico e direcao de arte limpa.',
   },
@@ -39,7 +39,7 @@ export const projects: Project[] = [
     slug: 'lojas-mm',
     title: 'Lojas MM',
     category: 'Institucionais',
-    imageSrc: '/lojasmm.png',
+    imageSrc: '/lojasmmLogo.png',
     imageAlt: 'Campanha visual para Lojas MM',
     summary:
       'Conteudo orientado a lifestyle com linguagem visual mais editorial.',
@@ -48,7 +48,7 @@ export const projects: Project[] = [
     slug: 'copagril',
     title: 'Copagril',
     category: 'Reels',
-    imageSrc: '/copagri.png',
+    imageSrc: '/copagriLogo.png',
     imageAlt: 'Video institucional da Copagril',
     summary:
       'Captacao em campo com discurso de marca claro e proximidade humana.',

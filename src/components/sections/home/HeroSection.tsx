@@ -12,7 +12,7 @@ export default function HeroSection() {
       <div className="relative h-full w-full bg-zinc-950 p-8">
         <div className="relative h-full w-full overflow-hidden rounded-4xl bg-zinc-900">
           <Image
-            src="/continental.png"
+            src="/continentalImage.png"
             alt="Imagem de apoio"
             fill
             loading="eager"
