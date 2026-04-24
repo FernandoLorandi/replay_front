@@ -4,13 +4,13 @@ import Button from '@/components/ui/Button';
 
 export default function ContactSection() {
   return (
-    <div className="mx-20 mt-24">
+    <div className="mx-20 mt-10">
       <div className="flex flex-row gap-6">
-        <article className="w-fill flex flex-col gap-10 rounded-2xl bg-zinc-900 px-20 pt-20 pb-10">
-          <h1 className="text-5xl font-semibold tracking-tight text-white">
+        <article className="w-fill relative flex flex-col justify-end gap-10 rounded-2xl bg-zinc-900 bg-[url(/contactImage.png)] bg-cover bg-center bg-no-repeat px-20 pt-20 pb-10">
+          <h1 className="z-10 text-5xl font-semibold tracking-tight text-white">
             Histórias que merecem replay
           </h1>
-          <div className="flex flex-col gap-4 text-base font-normal tracking-normal text-pretty text-zinc-200">
+          <div className="z-10 flex flex-col gap-4 text-xl font-normal tracking-normal text-pretty text-zinc-300">
             <div>
               Desde 2007, a Replay combina o rigor técnico do audiovisual com a
               sensibilidade humana para criar conteúdos que conectam marcas e
@@ -27,6 +27,7 @@ export default function ContactSection() {
               se tem uma história, nós sabemos como contá-la.
             </div>
           </div>
+          <div className="absolute inset-0 rounded-2xl bg-linear-to-t from-black/90 via-black/35 to-transparent"></div>
         </article>
         <div className="flex w-auto flex-col gap-6">
           <div className="flex flex-col gap-6 rounded-2xl bg-zinc-900 p-10">

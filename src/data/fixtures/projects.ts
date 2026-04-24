@@ -1,5 +1,4 @@
 export const projectCategories = [
-  'Todos',
   'Institucionais',
   'Reels',
   'Varejo',
@@ -39,7 +38,7 @@ export const projects: Project[] = [
   {
     slug: 'lojas-mm',
     title: 'Lojas MM',
-    category: 'Inteligencia Artificial',
+    category: 'Institucionais',
     imageSrc: '/lojasmm.png',
     imageAlt: 'Campanha visual para Lojas MM',
     summary:
@@ -48,7 +47,7 @@ export const projects: Project[] = [
   {
     slug: 'copagril',
     title: 'Copagril',
-    category: 'Institucionais',
+    category: 'Reels',
     imageSrc: '/copagri.png',
     imageAlt: 'Video institucional da Copagril',
     summary:
