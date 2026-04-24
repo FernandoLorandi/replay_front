@@ -7,6 +7,12 @@ settings:
 importers:
 
   .:
+    specifiers: {}
+
+  apps/cms:
+    specifiers: {}
+
+  apps/web:
     dependencies:
       '@gsap/react':
         specifier: ^2.1.2
