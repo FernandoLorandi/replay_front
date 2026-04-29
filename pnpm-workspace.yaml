@@ -3,5 +3,11 @@ packages:
   - packages/*
 
 ignoredBuiltDependencies:
+  - '@swc/core'
+  - core-js-pure
+  - esbuild
   - sharp
   - unrs-resolver
+
+onlyBuiltDependencies:
+  - better-sqlite3

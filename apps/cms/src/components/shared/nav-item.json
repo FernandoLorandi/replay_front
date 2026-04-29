@@ -1,0 +1,22 @@
+{
+  "collectionName": "components_shared_nav_items",
+  "info": {
+    "displayName": "nav-item"
+  },
+  "options": {},
+  "attributes": {
+    "label": {
+      "type": "string",
+      "required": true
+    },
+    "href": {
+      "type": "string",
+      "required": true
+    },
+    "external": {
+      "type": "boolean",
+      "default": false
+    }
+  },
+  "config": {}
+}

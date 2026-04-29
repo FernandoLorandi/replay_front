@@ -19,7 +19,7 @@ import {
 import { STRAPI_TAGS } from '@/lib/strapi/revalidation';
 
 const PROJECT_QUERY = {
-  'populate[coverImage]': '*',
+  populate: 'coverImage',
   'sort[0]': 'title:asc',
 };
 
@@ -29,12 +29,12 @@ const PROJECT_BY_SLUG_QUERY = (slug: string) => ({
 });
 
 const TEAM_QUERY = {
-  'populate[photo]': '*',
+  populate: 'photo',
   'sort[0]': 'name:asc',
 };
 
 const PARTNER_QUERY = {
-  'populate[logo]': '*',
+  populate: 'logo',
   'sort[0]': 'name:asc',
 };
 
@@ -44,6 +44,9 @@ function sortNavigationItems(items: NavItem[]) {
 
 export const getNavigationItems = cache(async () => {
   const payload = await fetchStrapiJson<unknown>('/api/navigation', {
+    query: {
+      'populate[0]': 'items',
+    },
     tags: [STRAPI_TAGS.navigation],
   });
 
