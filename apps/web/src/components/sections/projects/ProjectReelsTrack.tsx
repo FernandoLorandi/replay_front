@@ -7,6 +7,7 @@ export default function ProjectReelsTrack({
   projects,
   hoveredProjectSlug,
   onHoverProject,
+  onSelectProject,
 }: ProjectReelsTrackProps) {
   if (projects.length === 0) {
     return null;
@@ -24,6 +25,7 @@ export default function ProjectReelsTrack({
               project={project}
               isHovered={isHovered}
               variant="reels"
+              onClick={() => onSelectProject(project)}
               onMouseEnter={() => onHoverProject(project.slug)}
               onMouseLeave={() => onHoverProject(null)}
             />

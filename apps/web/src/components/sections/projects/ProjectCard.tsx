@@ -1,7 +1,7 @@
 'use client';
 
 import Image from 'next/image';
-import Link from 'next/link';
+import { useEffect, useRef } from 'react';
 import type { ProjectCardProps } from '@/types/projectCards';
 
 const cardVariantStyles = {
@@ -21,17 +21,38 @@ export default function ProjectCard({
   project,
   isHovered,
   variant = 'grid',
+  onClick,
   onMouseEnter,
   onMouseLeave,
 }: ProjectCardProps) {
+  
   const styles = cardVariantStyles[variant];
+  const previewVideoRef = useRef<HTMLVideoElement>(null);
+
+  useEffect(() => {
+    const video = previewVideoRef.current;
+
+    if (!video) {
+      return;
+    }
+
+    if (isHovered) {
+      void video.play();
+      return;
+    }
+
+    video.pause();
+    video.currentTime = 0;
+  }, [isHovered]);
 
   return (
-    <Link
-      href={`/projetos/${project.slug}`}
-      className={`block overflow-hidden rounded-4xl border border-zinc-900 bg-zinc-950 ${
+    <button
+      type="button"
+      className={`block overflow-hidden rounded-4xl border border-zinc-900 bg-zinc-950 text-left ${
         variant === 'reels' ? 'shrink-0' : ''
       }`}
+      aria-label={`Assistir ${project.title}`}
+      onClick={onClick}
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}
     >
@@ -40,14 +61,34 @@ export default function ProjectCard({
           className={`relative bg-zinc-900 ${styles.widthClass}`}
           style={{ aspectRatio: styles.aspectRatio }}
         >
-          <Image
-            src={project.imageSrc}
-            alt={project.imageAlt}
-            fill
-            className={`object-cover transition duration-500 ${
-              isHovered ? 'scale-105' : 'scale-100'
-            }`}
-          />
+          {project.previewMediaType === 'video' ? (
+            <video
+              src={project.previewMediaSrc}
+              ref={previewVideoRef}
+              className={`size-full object-cover transition duration-500 ${
+                isHovered ? 'scale-105' : 'scale-100'
+              }`}
+              aria-label={project.previewMediaAlt}
+              loop
+              muted
+              playsInline
+              preload="metadata"
+            />
+          ) : (
+            <Image
+              src={project.previewMediaSrc}
+              alt={project.previewMediaAlt}
+              fill
+              sizes={
+                variant === 'reels'
+                  ? '(min-width: 768px) 24rem, 20rem'
+                  : '(min-width: 768px) 50vw, 100vw'
+              }
+              className={`object-cover transition duration-500 ${
+                isHovered ? 'scale-105' : 'scale-100'
+              }`}
+            />
+          )}
 
           <div
             className={`absolute inset-0 flex flex-col justify-end bg-linear-to-t from-black/90 via-black/35 to-transparent p-6 transition duration-300 ${
@@ -66,6 +107,6 @@ export default function ProjectCard({
           </div>
         </div>
       </article>
-    </Link>
+    </button>
   );
 }

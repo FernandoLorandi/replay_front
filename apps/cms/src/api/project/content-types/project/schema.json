@@ -31,17 +31,93 @@
         "Motions Graphics"
       ]
     },
-    "coverImage": {
+    "previewVideo": {
       "type": "media",
       "multiple": false,
       "required": true,
       "allowedTypes": [
-        "images",
-        "videos"
+        "videos",
+        "files"
       ]
+    },
+    "videoUrl": {
+      "type": "string",
+      "required": true
+    },
+    "showOnHome": {
+      "type": "boolean",
+      "conditions": {
+        "visible": {
+          "!=": [
+            {
+              "var": "category"
+            },
+            "Reels"
+          ]
+        }
+      },
+      "default": false
     },
     "summary": {
       "type": "text"
+    },
+    "homeOrder": {
+      "type": "integer",
+      "conditions": {
+        "visible": {
+          "!=": [
+            {
+              "var": "category"
+            },
+            "Reels"
+          ]
+        }
+      }
+    },
+    "homeHeroVideo": {
+      "type": "media",
+      "conditions": {
+        "visible": {
+          "!=": [
+            {
+              "var": "category"
+            },
+            "Reels"
+          ]
+        }
+      },
+      "multiple": false,
+      "required": false,
+      "allowedTypes": [
+        "videos",
+        "files"
+      ]
+    },
+    "homeTitle": {
+      "type": "string",
+      "conditions": {
+        "visible": {
+          "!=": [
+            {
+              "var": "category"
+            },
+            "Reels"
+          ]
+        }
+      }
+    },
+    "homeSummary": {
+      "type": "text",
+      "conditions": {
+        "visible": {
+          "!=": [
+            {
+              "var": "category"
+            },
+            "Reels"
+          ]
+        }
+      }
     }
   }
 }

@@ -5,6 +5,7 @@ import { useState } from 'react';
 import ProjectTab from './ProjectTab';
 import ProjectCard from './ProjectCard';
 import ProjectReelsTrack from './ProjectReelsTrack';
+import ProjectVideoModal from './ProjectVideoModal';
 import Button from '@/components/ui/Button';
 import type { ProjectCategory, ProjectSummary } from '@/types/cms';
 
@@ -22,6 +23,9 @@ export default function ProjectSection({
   const router = useRouter();
   const [activeCategory, setActiveCategory] =
     useState<ProjectCategory>('Institucionais');
+  const [selectedProject, setSelectedProject] = useState<ProjectSummary | null>(
+    null
+  );
 
   const filteredProjects = projects.filter(
     (project) => project.category === activeCategory
@@ -62,6 +66,7 @@ export default function ProjectSection({
               projects={filteredProjects}
               hoveredProjectSlug={isHoveredProject}
               onHoverProject={setIsHoveredProject}
+              onSelectProject={setSelectedProject}
             />
           ) : (
             <div className="grid gap-6 md:grid-cols-2">
@@ -73,6 +78,7 @@ export default function ProjectSection({
                     key={project.slug}
                     project={project}
                     isHovered={isHovered}
+                    onClick={() => setSelectedProject(project)}
                     onMouseEnter={() => setIsHoveredProject(project.slug)}
                     onMouseLeave={() => setIsHoveredProject(null)}
                   />
@@ -101,6 +107,12 @@ export default function ProjectSection({
           ></Button>
         </div>
       ) : null}
+
+      <ProjectVideoModal
+        project={selectedProject}
+        isOpen={selectedProject !== null}
+        onClose={() => setSelectedProject(null)}
+      />
     </section>
   );
 }

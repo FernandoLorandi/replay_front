@@ -11,6 +11,7 @@ type QueryValue =
   | undefined;
 
 type FetchStrapiOptions = {
+  draftMode?: boolean;
   query?: Record<string, QueryValue>;
   revalidate?: number;
   tags?: string[];
@@ -63,7 +64,8 @@ export async function fetchStrapiJson<T>(
     return null;
   }
 
-  const { isEnabled } = await draftMode();
+  const isDraftModeEnabled =
+    options.draftMode === false ? false : (await draftMode()).isEnabled;
   const token = process.env.STRAPI_API_TOKEN;
   const headers = new Headers({
     Accept: 'application/json',
@@ -73,7 +75,7 @@ export async function fetchStrapiJson<T>(
     headers.set('Authorization', `Bearer ${token}`);
   }
 
-  const requestInit = isEnabled
+  const requestInit = isDraftModeEnabled
     ? {
         cache: 'no-store' as const,
         headers,

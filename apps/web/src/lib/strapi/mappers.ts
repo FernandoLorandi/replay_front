@@ -32,6 +32,21 @@ function getTextField(
   return null;
 }
 
+function getNumberField(
+  record: Record<string, unknown>,
+  ...keys: string[]
+): number | null {
+  for (const key of keys) {
+    const value = record[key];
+
+    if (typeof value === 'number' && Number.isFinite(value)) {
+      return value;
+    }
+  }
+
+  return null;
+}
+
 function getMediaField(record: Record<string, unknown>, key: string) {
   const mediaValue = record[key];
 
@@ -49,9 +64,15 @@ function getMediaField(record: Record<string, unknown>, key: string) {
 
   const url = getTextField(mediaRecord, 'url');
   const alt = getTextField(mediaRecord, 'alternativeText', 'name');
+  const mime = getTextField(mediaRecord, 'mime');
+  const ext = getTextField(mediaRecord, 'ext');
 
   return {
     alt,
+    type:
+      mime?.startsWith('video/') || ext?.toLowerCase() === '.mp4'
+        ? ('video' as const)
+        : ('image' as const),
     url: toAbsoluteMediaUrl(url),
   };
 }
@@ -76,9 +97,11 @@ function toProjectSummary(entity: unknown): ProjectSummary | null {
   const slug = getTextField(record, 'slug');
   const title = getTextField(record, 'title', 'name');
   const media =
+    getMediaField(record, 'previewVideo') ??
     getMediaField(record, 'image') ??
     getMediaField(record, 'cover') ??
     getMediaField(record, 'coverImage');
+  const homeHeroMedia = getMediaField(record, 'homeHeroVideo');
 
   if (!slug || !title) {
     return null;
@@ -88,9 +111,18 @@ function toProjectSummary(entity: unknown): ProjectSummary | null {
     slug,
     title,
     category: toProjectCategory(getTextField(record, 'category')),
-    imageAlt: media?.alt ?? title,
-    imageSrc: media?.url ?? '/continentalImage.png',
+    previewMediaAlt: media?.alt ?? title,
+    previewMediaSrc: media?.url ?? '/continentalImage.png',
+    previewMediaType: media?.type ?? 'image',
     summary: getTextField(record, 'summary', 'excerpt', 'description') ?? '',
+    videoUrl: getTextField(record, 'videoUrl', 'fullVideoUrl'),
+    showOnHome: record.showOnHome === true,
+    homeOrder: getNumberField(record, 'homeOrder'),
+    homeTitle: getTextField(record, 'homeTitle'),
+    homeSummary: getTextField(record, 'homeSummary'),
+    homeHeroMediaAlt: homeHeroMedia?.alt ?? null,
+    homeHeroMediaSrc: homeHeroMedia?.url ?? null,
+    homeHeroMediaType: homeHeroMedia?.type ?? null,
   };
 }
 

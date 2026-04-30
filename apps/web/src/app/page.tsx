@@ -12,6 +12,7 @@ export default async function Home() {
     <div className="flex w-screen flex-col gap-20">
       <Hero
         featuredProject={homePageData.featuredProject}
+        featuredProjects={homePageData.featuredProjects}
         navigationItems={homePageData.navigationItems}
       />
       <PartnerSection partners={homePageData.partners} />

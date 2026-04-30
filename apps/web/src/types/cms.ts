@@ -15,9 +15,18 @@ export type ProjectSummary = {
   slug: string;
   title: string;
   category: ProjectCategory;
-  imageSrc: string;
-  imageAlt: string;
+  previewMediaType: 'image' | 'video';
+  previewMediaSrc: string;
+  previewMediaAlt: string;
   summary: string;
+  videoUrl: string | null;
+  showOnHome: boolean;
+  homeOrder: number | null;
+  homeTitle: string | null;
+  homeSummary: string | null;
+  homeHeroMediaType: 'image' | 'video' | null;
+  homeHeroMediaSrc: string | null;
+  homeHeroMediaAlt: string | null;
 };
 
 export type PartnerLogo = {
@@ -28,6 +37,7 @@ export type PartnerLogo = {
 
 export type HomePageData = {
   featuredProject: ProjectSummary | null;
+  featuredProjects: ProjectSummary[];
   navigationItems: NavItem[];
   partners: PartnerLogo[];
   projects: ProjectSummary[];

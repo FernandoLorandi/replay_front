@@ -19,7 +19,8 @@ import {
 import { STRAPI_TAGS } from '@/lib/strapi/revalidation';
 
 const PROJECT_QUERY = {
-  populate: 'coverImage',
+  'populate[0]': 'previewVideo',
+  'populate[1]': 'homeHeroVideo',
   'sort[0]': 'title:asc',
 };
 
@@ -36,6 +37,10 @@ const TEAM_QUERY = {
 const PARTNER_QUERY = {
   populate: 'logo',
   'sort[0]': 'name:asc',
+};
+
+type ProjectFetchOptions = {
+  draftMode?: boolean;
 };
 
 function sortNavigationItems(items: NavItem[]) {
@@ -55,8 +60,9 @@ export const getNavigationItems = cache(async () => {
   );
 });
 
-export const getProjects = cache(async () => {
+export const getProjects = cache(async (options: ProjectFetchOptions = {}) => {
   const payload = await fetchStrapiJson<unknown>('/api/projects', {
+    draftMode: options.draftMode,
     query: PROJECT_QUERY,
     tags: [STRAPI_TAGS.projects],
   });
@@ -104,13 +110,18 @@ export async function getHomePageData(): Promise<HomePageData> {
     getProjects(),
   ]);
 
-  const featuredProject =
-    projects.find((project) => project.category === 'Institucionais') ??
-    projects[0] ??
-    null;
+  const featuredProjects = projects
+    .filter((project) => project.showOnHome)
+    .sort((projectA, projectB) => {
+      const orderA = projectA.homeOrder ?? Number.MAX_SAFE_INTEGER;
+      const orderB = projectB.homeOrder ?? Number.MAX_SAFE_INTEGER;
+      return orderA - orderB;
+    });
+  const featuredProject = featuredProjects[0] ?? projects[0] ?? null;
 
   return {
     featuredProject,
+    featuredProjects,
     navigationItems,
     partners,
     projectCategories,

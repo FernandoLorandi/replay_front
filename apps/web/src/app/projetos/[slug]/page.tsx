@@ -2,7 +2,7 @@ import { notFound } from 'next/navigation';
 import { getProjectBySlug, getProjects } from '@/lib/strapi/repository';
 
 export async function generateStaticParams() {
-  const projects = await getProjects();
+  const projects = await getProjects({ draftMode: false });
 
   return projects.map((project) => ({
     slug: project.slug,

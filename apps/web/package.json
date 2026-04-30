@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start",
     "typecheck": "tsc --noEmit",
-    "test:strapi": "node --experimental-strip-types --test src/lib/strapi/mappers.test.ts src/lib/strapi/revalidation.test.ts"
+    "test:strapi": "node --experimental-strip-types --test src/lib/strapi/mappers.test.ts src/lib/strapi/revalidation.test.ts src/lib/video.test.ts"
   },
   "dependencies": {
     "@gsap/react": "^2.1.2",

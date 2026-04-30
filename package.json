@@ -12,7 +12,7 @@
     "typecheck": "pnpm --dir apps/web typecheck",
     "typecheck:web": "pnpm --dir apps/web typecheck",
     "test:strapi": "pnpm --dir apps/web test:strapi",
-    "cms:dev": "pnpm --dir apps/cms dev",
+    "dev:cms": "pnpm --dir apps/cms dev",
     "cms:build": "pnpm --dir apps/cms build"
   },
   "packageManager": "pnpm@10.17.1"
