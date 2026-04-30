@@ -13,6 +13,7 @@ Comandos esperados:
 Variaveis de ambiente:
 
 - `STRAPI_URL`: URL base do Strapi, ex. `http://localhost:1337`
+- `NEXT_IMAGE_ALLOW_LOCAL_IP`: habilita otimizacao de imagens do `next/image` para hosts locais/privados, ex. `true`
 - `STRAPI_API_TOKEN`: token opcional para leitura server-side no Next
 - `STRAPI_WEBHOOK_SECRET`: segredo validado em `POST /api/revalidate`
 - `STRAPI_PREVIEW_SECRET`: segredo validado em `GET /api/preview`
@@ -21,8 +22,9 @@ Bootstrap local recomendado:
 
 1. Crie `apps/web/.env.local` a partir de `apps/web/.env.example`
 2. Defina `STRAPI_URL=http://localhost:1337`
-3. Se o Strapi nao estiver com leitura publica, gere um API token de leitura e preencha `STRAPI_API_TOKEN`
-4. Defina segredos para preview e revalidate
+3. Se estiver usando imagens do Strapi local com `next/image`, defina `NEXT_IMAGE_ALLOW_LOCAL_IP=true`
+4. Se o Strapi nao estiver com leitura publica, gere um API token de leitura e preencha `STRAPI_API_TOKEN`
+5. Defina segredos para preview e revalidate
 
 Validacao manual:
 

@@ -19,7 +19,7 @@ export default function PartnerSection({ partners }: PartnerSectionProps) {
             key={partner.name}
             src={partner.logoSrc}
             alt={partner.logoAlt}
-            style={{ objectFit: 'contain' }}
+            style={{ objectFit: 'contain', width: 'auto' }}
             width={150}
             height={150}
             className="opacity-50 grayscale"
