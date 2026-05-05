@@ -6,7 +6,7 @@ export default function FooterSection() {
       </p>
       <div className="flex items-center gap-2">
         <p className="font-base leading-6 text-zinc-400">Powered by</p>
-        <img src="/FooterLogo.svg" alt="Logo LojasMM" />
+        <img src="/footerLogo.svg" alt="Logo LojasMM" />
       </div>
     </div>
   );
