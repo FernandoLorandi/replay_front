@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import Logo from '../ui/Logo';
 import type { NavItem } from '@/types/navigation';
+import LogoImg from '../ui/LogoImg';
 
 type SiteNavProps = {
   items: NavItem[];
@@ -11,7 +12,7 @@ export default function SiteNav({ items }: SiteNavProps) {
     <div className="flex items-center justify-between py-16">
       <div>
         <Link href="/">
-          <Logo />
+          <LogoImg />
         </Link>
       </div>
       <div className="flex gap-5 rounded-lg bg-zinc-800/10 p-4 backdrop-blur-lg backdrop-opacity-70">

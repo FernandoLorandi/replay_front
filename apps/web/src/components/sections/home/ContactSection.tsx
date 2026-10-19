@@ -1,15 +1,60 @@
 'use client';
 
 import Button from '@/components/ui/Button';
+import gsap from 'gsap';
+import { useGSAP } from '@gsap/react';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { useRef } from 'react';
+
+gsap.registerPlugin(ScrollTrigger);
 
 export default function ContactSection() {
+  const sectionRef = useRef<HTMLElement | null>(null);
+  const itemRefs = useRef<Array<HTMLElement | null>>([]);
+
+  useGSAP(() => {
+    if (!sectionRef.current) return;
+
+    const items = itemRefs.current.filter(
+      (item): item is HTMLElement => item !== null,
+    );
+    const media = gsap.matchMedia();
+
+    media.add('(prefers-reduced-motion: no-preference)', () => {
+      gsap.fromTo(
+        items,
+        { autoAlpha: 0, y: 20 },
+        {
+          autoAlpha: 1,
+          y: 0,
+          duration: 0.55,
+          stagger: 0.12,
+          ease: 'power3.out',
+          scrollTrigger: {
+            trigger: sectionRef.current,
+            start: 'top 75%',
+            once: true,
+          },
+        },
+      );
+    });
+
+    return () => media.revert();
+  }, { scope: sectionRef });
+
   return (
     <section
+      ref={sectionRef}
       className="mx-4 mt-10 sm:mx-8 lg:mx-20"
       aria-labelledby="contact-title"
     >
       <div className="flex flex-col gap-6 xl:flex-row">
-        <article className="relative min-h-112 flex-1 overflow-hidden rounded-2xl border border-zinc-800 bg-zinc-900 bg-[url(/contactImage.png)] bg-cover bg-center bg-no-repeat px-6 py-8 sm:px-10 sm:py-10 lg:px-20 lg:pt-20 lg:pb-10">
+        <article
+          ref={(element) => {
+            itemRefs.current[0] = element;
+          }}
+          className="relative min-h-112 flex-1 overflow-hidden rounded-2xl border border-zinc-800 bg-zinc-900 bg-[url(/contactImage.png)] bg-cover bg-center bg-no-repeat px-6 py-8 sm:px-10 sm:py-10 lg:px-20 lg:pt-20 lg:pb-10"
+        >
           <div className="relative z-10 flex h-full flex-col justify-end gap-10">
             <div className="max-w-3xl space-y-4">
               <h2
@@ -44,6 +89,9 @@ export default function ContactSection() {
 
         <div className="flex w-full flex-col gap-6 xl:max-w-lg">
           <div
+            ref={(element) => {
+              itemRefs.current[1] = element;
+            }}
             className={
               'flex flex-col gap-6 rounded-2xl border border-zinc-800 bg-zinc-900 p-6 sm:p-10'
             }
@@ -69,6 +117,9 @@ export default function ContactSection() {
           </div>
 
           <address
+            ref={(element) => {
+              itemRefs.current[2] = element;
+            }}
             className={
               'rounded-2xl border border-zinc-800 bg-zinc-900 p-6 not-italic sm:p-10'
             }

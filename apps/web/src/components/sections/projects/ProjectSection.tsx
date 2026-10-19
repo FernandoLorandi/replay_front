@@ -1,13 +1,18 @@
 'use client';
 
 import { useRouter } from 'next/navigation';
-import { useState } from 'react';
+import { useRef, useState } from 'react';
+import gsap from 'gsap';
+import { useGSAP } from '@gsap/react';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import ProjectTab from './ProjectTab';
 import ProjectCard from './ProjectCard';
 import ProjectReelsTrack from './ProjectReelsTrack';
 import ProjectVideoModal from './ProjectVideoModal';
 import Button from '@/components/ui/Button';
 import type { ProjectCategory, ProjectSummary } from '@/types/cms';
+
+gsap.registerPlugin(ScrollTrigger);
 
 type ProjectSectionProps = {
   projectCategories: readonly ProjectCategory[];
@@ -20,6 +25,9 @@ export default function ProjectSection({
   projects,
   showCta = true,
 }: ProjectSectionProps) {
+  const sectionRef = useRef<HTMLElement | null>(null);
+  const headingRef = useRef<HTMLDivElement | null>(null);
+  const filtersRef = useRef<HTMLDivElement | null>(null);
   const router = useRouter();
   const [activeCategory, setActiveCategory] =
     useState<ProjectCategory>('Institucionais');
@@ -36,9 +44,59 @@ export default function ProjectSection({
 
   const [isHoveredProject, setIsHoveredProject] = useState<string | null>(null);
 
+  useGSAP(() => {
+    if (!sectionRef.current || !headingRef.current || !filtersRef.current) {
+      return;
+    }
+
+    const media = gsap.matchMedia();
+
+    media.add('(prefers-reduced-motion: no-preference)', () => {
+      const cards = gsap.utils.toArray<HTMLElement>(
+        '[data-project-card]',
+        sectionRef.current,
+      );
+
+      const timeline = gsap.timeline({
+        scrollTrigger: {
+          trigger: sectionRef.current,
+          start: 'top 75%',
+          once: true,
+        },
+      });
+
+      timeline
+        .fromTo(
+          headingRef.current,
+          { autoAlpha: 0, y: 20 },
+          { autoAlpha: 1, y: 0, duration: 0.55, ease: 'power3.out' },
+        )
+        .fromTo(
+          filtersRef.current,
+          { autoAlpha: 0, y: 16 },
+          { autoAlpha: 1, y: 0, duration: 0.45, ease: 'power3.out' },
+          '-=0.3',
+        )
+        .fromTo(
+          cards,
+          { autoAlpha: 0, y: 16 },
+          {
+            autoAlpha: 1,
+            y: 0,
+            duration: 0.5,
+            stagger: 0.08,
+            ease: 'power3.out',
+          },
+          '-=0.2',
+        );
+    });
+
+    return () => media.revert();
+  }, { scope: sectionRef });
+
   return (
-    <section className="mx-20 my-20">
-      <div className="flex flex-col gap-4">
+    <section ref={sectionRef} className="mx-20 my-20">
+      <div ref={headingRef} className="flex flex-col gap-4">
         <h1 className="text-6xl font-semibold tracking-tight text-white">
           Projetos Selecionados
         </h1>
@@ -48,7 +106,7 @@ export default function ProjectSection({
         </span>
       </div>
 
-      <div className="my-8 flex flex-wrap gap-4">
+      <div ref={filtersRef} className="my-8 flex flex-wrap gap-4">
         {projectCategories.map((category) => (
           <ProjectTab
             key={category}
