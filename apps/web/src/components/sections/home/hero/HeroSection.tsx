@@ -1,4 +1,5 @@
 import HeroOpeningStage from './HeroOpeningStage';
+import { normalizeHeroProjects } from './hero-projects';
 import type { NavItem } from '@/types/navigation';
 import type { ProjectSummary } from '@/types/cms';
 
@@ -13,35 +14,12 @@ export default function HeroSection({
   featuredProjects = [],
   navigationItems,
 }: HeroSectionProps) {
-  const heroProject = featuredProjects[0] ?? featuredProject;
-
-  const heroMediaSrc =
-    heroProject?.homeHeroMediaSrc ??
-    heroProject?.previewMediaSrc ??
-    '/continentalImage.png';
-
-  const heroMediaAlt =
-    heroProject?.homeHeroMediaAlt ??
-    heroProject?.previewMediaAlt ??
-    'Video de apoio';
-
-  const heroMediaType =
-    heroProject?.homeHeroMediaType ?? heroProject?.previewMediaType ?? 'image';
-
-  const heroTitle =
-    heroProject?.homeTitle ?? heroProject?.title ?? 'Continental';
-
-  const heroLabel =
-    heroProject?.homeSummary ?? heroProject?.category ?? 'Tipo do projeto';
+  const heroProjects = normalizeHeroProjects(featuredProjects, featuredProject);
 
   return (
     <HeroOpeningStage
       navigationItems={navigationItems}
-      heroMediaSrc={heroMediaSrc}
-      heroMediaAlt={heroMediaAlt}
-      heroMediaType={heroMediaType}
-      heroTitle={heroTitle}
-      heroLabel={heroLabel}
+      projects={heroProjects}
     />
   );
 }

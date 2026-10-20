@@ -48,6 +48,7 @@ export default function ProjectCard({
   return (
     <button
       type="button"
+      data-project-card
       className={`block overflow-hidden rounded-4xl border border-zinc-900 bg-zinc-950 text-left ${
         variant === 'reels' ? 'shrink-0' : ''
       }`}
