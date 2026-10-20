@@ -44,6 +44,7 @@ export default function ContactSection() {
 
   return (
     <section
+      id='contato'
       ref={sectionRef}
       className="mx-4 mt-10 sm:mx-8 lg:mx-20"
       aria-labelledby="contact-title"

@@ -23,6 +23,9 @@ export default function ProjectVideoModal({
       return;
     }
 
+    const previousOverflow = document.documentElement.style.overflow;
+    document.documentElement.style.overflow = 'hidden';
+
     function handleKeyDown(event: KeyboardEvent) {
       if (event.key === 'Escape') {
         onClose();
@@ -30,7 +33,10 @@ export default function ProjectVideoModal({
     }
 
     window.addEventListener('keydown', handleKeyDown);
-    return () => window.removeEventListener('keydown', handleKeyDown);
+    return () => {
+      document.documentElement.style.overflow = previousOverflow;
+      window.removeEventListener('keydown', handleKeyDown);
+    };
   }, [isOpen, onClose]);
 
   if (!isOpen || !project) {
@@ -39,17 +45,17 @@ export default function ProjectVideoModal({
 
   return (
     <div
-      className="fixed inset-0 z-50 flex items-center justify-center bg-black/85 px-4 py-8"
+      className="fixed inset-0 z-50 flex items-center justify-center bg-black/90 px-4 py-8"
       role="dialog"
       aria-modal="true"
       aria-labelledby="project-video-modal-title"
       onMouseDown={onClose}
     >
       <div
-        className="w-full max-w-5xl rounded-4xl border border-zinc-800 bg-zinc-950 p-4 shadow-2xl shadow-black/50 md:p-6"
+        className="w-full max-w-5xl rounded-3xl border border-zinc-800 bg-zinc-950 p-4 shadow-2xl shadow-black/50 md:p-6"
         onMouseDown={(event) => event.stopPropagation()}
       >
-        <div className="mb-4 flex items-center justify-between gap-4">
+        <div className="mb-8 flex items-center justify-between gap-4">
           <h2
             id="project-video-modal-title"
             className="text-2xl font-semibold tracking-tight text-white md:text-4xl"
@@ -66,7 +72,7 @@ export default function ProjectVideoModal({
           </button>
         </div>
 
-        <div className="aspect-video overflow-hidden rounded-3xl bg-zinc-900">
+        <div className="aspect-video overflow-hidden rounded-xl bg-zinc-900">
           {playbackSource?.kind === 'iframe' ? (
             <iframe
               src={playbackSource.src}

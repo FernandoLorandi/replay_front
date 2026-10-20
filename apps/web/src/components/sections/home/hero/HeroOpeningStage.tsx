@@ -9,7 +9,10 @@ import Image from 'next/image';
 import { useEffect, useRef, useState } from 'react';
 import SiteNav from '@/components/layout/SiteNav';
 import { Play } from 'lucide-react';
-import { getHeroProjectIndex } from './hero-projects';
+import {
+  getHeroProjectIndex,
+  shouldAnimateHeroTransition,
+} from './hero-projects';
 import { HOME_INTRO_SESSION_KEY, shouldPlayHomeIntro } from './home-intro';
 import LogoImg from '@/components/ui/LogoImg';
 
@@ -32,7 +35,10 @@ export default function HeroOpeningStage({
   const introOverlayRef = useRef<HTMLDivElement | null>(null);
   const introCounterRef = useRef<HTMLSpanElement | null>(null);
   const mediaLayerRefs = useRef<Array<HTMLDivElement | null>>([]);
+  const shutterBladeRefs = useRef<Array<HTMLDivElement | null>>([]);
   const hasFinishedOpeningRef = useRef(false);
+  const previousActiveIndexRef = useRef<number | null>(null);
+  const shutterTimelineRef = useRef<gsap.core.Timeline | null>(null);
   const [activeIndex, setActiveIndex] = useState(0);
   const [hasFinishedOpening, setHasFinishedOpening] = useState(false);
   const [introMode, setIntroMode] = useState<'pending' | 'play' | 'skip'>('pending');
@@ -130,8 +136,17 @@ export default function HeroOpeningStage({
     const mediaLayers = mediaLayerRefs.current.filter(
       (layer): layer is HTMLDivElement => layer !== null,
     );
+    const shutterBlades = shutterBladeRefs.current.filter(
+      (blade): blade is HTMLDivElement => blade !== null,
+    );
 
     if (!hasFinishedOpening || mediaLayers.length === 0) return;
+
+    const shouldAnimateShutter = shouldAnimateHeroTransition(
+      previousActiveIndexRef.current,
+      activeIndex,
+    );
+    previousActiveIndexRef.current = activeIndex;
 
     gsap.to(mediaLayers, {
       autoAlpha: 0,
@@ -148,6 +163,22 @@ export default function HeroOpeningStage({
       ease: 'power3.out',
       overwrite: true,
     });
+
+    if (shouldAnimateShutter && shutterBlades.length === 2) {
+      shutterTimelineRef.current?.kill();
+      shutterTimelineRef.current = gsap.timeline()
+        .set(shutterBlades, { scaleY: 0 })
+        .to(shutterBlades, {
+          scaleY: 1,
+          duration: 0.22,
+          ease: 'power2.in',
+        })
+        .to(shutterBlades, {
+          scaleY: 0,
+          duration: 0.42,
+          ease: 'power3.out',
+        });
+    }
 
     if (textRef.current && activeIndex !== 0) {
       gsap.fromTo(
@@ -287,6 +318,20 @@ export default function HeroOpeningStage({
             })}
 
             <div className="pointer-events-none absolute inset-0 bg-linear-to-t from-zinc-950 via-transparent to-transparent opacity-80"></div>
+            <div
+              ref={(element) => {
+                shutterBladeRefs.current[0] = element;
+              }}
+              className="pointer-events-none absolute inset-x-0 top-0 z-5 h-1/2 origin-top scale-y-0 bg-zinc-950"
+              aria-hidden="true"
+            />
+            <div
+              ref={(element) => {
+                shutterBladeRefs.current[1] = element;
+              }}
+              className="pointer-events-none absolute inset-x-0 bottom-0 z-5 h-1/2 origin-bottom scale-y-0 bg-zinc-950"
+              aria-hidden="true"
+            />
             <div
               ref={navBarRef}
               className="absolute inset-x-0 top-0 z-10 px-12 md:px-20"

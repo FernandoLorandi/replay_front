@@ -15,7 +15,7 @@ export default function SiteNav({ items }: SiteNavProps) {
           <LogoImg />
         </Link>
       </div>
-      <div className="flex gap-5 rounded-lg bg-zinc-800/10 p-4 backdrop-blur-lg backdrop-opacity-70">
+      <div className="flex gap-5 rounded-lg bg-zinc-800/10 p-4 backdrop-blur-lg backdrop-opacity-70 border border-zinc-600/30">
         {items.map((navItems) => (
           <Link
             href={navItems.href}

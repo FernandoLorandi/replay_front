@@ -22,3 +22,10 @@ export function getHeroProjectIndex(
     projectCount - 1,
   );
 }
+
+export function shouldAnimateHeroTransition(
+  previousIndex: number | null,
+  nextIndex: number,
+): boolean {
+  return previousIndex !== null && previousIndex !== nextIndex;
+}
