@@ -1,5 +1,4 @@
 import Link from 'next/link';
-import Logo from '../ui/Logo';
 import type { NavItem } from '@/types/navigation';
 import LogoImg from '../ui/LogoImg';
 

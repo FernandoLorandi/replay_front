@@ -6,6 +6,7 @@ export default function LogoImg() {
       src='/logo.png' 
       height={80}
       width={80}
-      alt="Logomarca produtora replay"/>
+      alt="Logomarca produtora replay"
+      loading='eager'/>
   );
 }

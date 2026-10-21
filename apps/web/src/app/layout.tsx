@@ -26,6 +26,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
     <html
       lang="pt-br"
       className={`${dmSans.variable} w-screen overflow-x-hidden overflow-y-auto`}
+      data-scroll-behavior="smooth"
     >
       <body className="w-full overflow-x-hidden overflow-y-auto antialiased">
         <main className="flex w-full flex-col gap-20 bg-zinc-950">
