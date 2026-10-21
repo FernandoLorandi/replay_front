@@ -21,7 +21,7 @@ export default async function Home() {
           aria-hidden="true"
           className="pointer-events-none sticky top-0 -mb-[100svh] hidden h-svh overflow-hidden lg:block"
         >
-          <div className="absolute inset-y-0 right-0 w-[min(55vw,900px)] bg-zinc-950 bg-[url('/backgroundImage.png')] bg-contain bg-right bg-no-repeat opacity-40 bg-blend-multiply" />
+          <div className="absolute inset-y-0 right-0 w-[min(55vw,900px)] bg-zinc-950 bg-[url('/backgroundImage.png')] bg-contain bg-right bg-no-repeat opacity-10 bg-blend-screen" />
         </div>
 
         <div className="relative z-10 flex flex-col gap-20">

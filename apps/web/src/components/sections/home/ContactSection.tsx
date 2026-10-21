@@ -1,6 +1,6 @@
 'use client';
 
-import Button from '@/components/ui/Button';
+import { Button } from '@/components/ui/Button';
 import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
@@ -12,60 +12,63 @@ export default function ContactSection() {
   const sectionRef = useRef<HTMLElement | null>(null);
   const itemRefs = useRef<Array<HTMLElement | null>>([]);
 
-  useGSAP(() => {
-    if (!sectionRef.current) return;
+  useGSAP(
+    () => {
+      if (!sectionRef.current) return;
 
-    const items = itemRefs.current.filter(
-      (item): item is HTMLElement => item !== null,
-    );
-    const media = gsap.matchMedia();
-
-    media.add('(prefers-reduced-motion: no-preference)', () => {
-      gsap.fromTo(
-        items,
-        { autoAlpha: 0, y: 20 },
-        {
-          autoAlpha: 1,
-          y: 0,
-          duration: 0.55,
-          stagger: 0.12,
-          ease: 'power3.out',
-          scrollTrigger: {
-            trigger: sectionRef.current,
-            start: 'top 75%',
-            once: true,
-          },
-        },
+      const items = itemRefs.current.filter(
+        (item): item is HTMLElement => item !== null
       );
-    });
+      const media = gsap.matchMedia();
 
-    return () => media.revert();
-  }, { scope: sectionRef });
+      media.add('(prefers-reduced-motion: no-preference)', () => {
+        gsap.fromTo(
+          items,
+          { autoAlpha: 0, y: 20 },
+          {
+            autoAlpha: 1,
+            y: 0,
+            duration: 0.55,
+            stagger: 0.12,
+            ease: 'power3.out',
+            scrollTrigger: {
+              trigger: sectionRef.current,
+              start: 'top 75%',
+              once: true,
+            },
+          }
+        );
+      });
+
+      return () => media.revert();
+    },
+    { scope: sectionRef }
+  );
 
   return (
     <section
-      id='contato'
+      id="contato"
       ref={sectionRef}
       className="mx-4 mt-10 sm:mx-8 lg:mx-20"
       aria-labelledby="contact-title"
     >
-      <div className="flex flex-col gap-6 xl:flex-row">
+      <div className="flex flex-col gap-4 sm:gap-6 xl:flex-row">
         <article
           ref={(element) => {
             itemRefs.current[0] = element;
           }}
-          className="relative min-h-112 flex-1 overflow-hidden rounded-2xl border border-zinc-800 bg-zinc-900 bg-[url(/contactImage.png)] bg-cover bg-center bg-no-repeat px-6 py-8 sm:px-10 sm:py-10 lg:px-20 lg:pt-20 lg:pb-10"
+          className="relative min-h-[28rem] flex-1 overflow-hidden rounded-3xl border border-zinc-800 bg-zinc-900 bg-[url(/contactImage.png)] bg-cover bg-center bg-no-repeat px-4 py-6 sm:min-h-112 sm:rounded-2xl sm:px-10 sm:py-10 lg:px-20 lg:pt-20 lg:pb-10"
         >
-          <div className="relative z-10 flex h-full flex-col justify-end gap-10">
+          <div className="relative z-10 flex h-full flex-col justify-end gap-8 sm:gap-10">
             <div className="max-w-3xl space-y-4">
               <h2
                 id="contact-title"
-                className="text-4xl font-semibold tracking-tight text-white sm:text-5xl"
+                className="text-3xl font-semibold tracking-tight text-white sm:text-5xl"
               >
                 Histórias que merecem replay
               </h2>
 
-              <div className="space-y-4 text-lg font-normal tracking-normal text-pretty text-zinc-300 sm:text-xl">
+              <div className="space-y-4 text-base font-normal tracking-normal text-pretty text-zinc-300 sm:text-xl">
                 <p>
                   Desde 2007, a Replay combina o rigor técnico do audiovisual
                   com a sensibilidade humana para criar conteúdos que conectam
@@ -88,30 +91,33 @@ export default function ContactSection() {
           <div className="absolute inset-0 rounded-2xl bg-linear-to-t from-black/90 via-black/35 to-transparent" />
         </article>
 
-        <div className="flex w-full flex-col gap-6 xl:max-w-lg">
+        <div className="flex w-full flex-col gap-4 sm:gap-6 xl:max-w-lg">
           <div
             ref={(element) => {
               itemRefs.current[1] = element;
             }}
             className={
-              'flex flex-col gap-6 rounded-2xl border border-zinc-800 bg-zinc-900 p-6 sm:p-10'
+              'flex flex-col gap-5 rounded-3xl border border-zinc-800 bg-zinc-900 p-4 sm:gap-6 sm:rounded-2xl sm:p-10'
             }
           >
-            <h3 className="text-3xl font-semibold tracking-tight text-white sm:text-4xl">
+            <h3 className="text-2xl font-semibold tracking-tight text-white sm:text-4xl">
               Vamos tirar sua ideia do papel?
             </h3>
 
             <Button
-              label="Vamos iniciar um projeto"
+              variant="default"
+              size="lg"
+              className="min-h-11 w-full rounded-full px-4 text-base text-zinc-950 hover:bg-zinc-300 sm:w-fit"
               onClick={() => {}}
-              className="w-full bg-zinc-50 text-lg text-zinc-950 hover:bg-zinc-100 sm:w-fit sm:text-xl"
-            />
+            >
+              Vamos iniciar um projeto
+            </Button>
 
             <div className="flex flex-col gap-2">
-              <p className="text-lg font-normal text-zinc-400 sm:text-xl">
+              <p className="text-base font-normal text-zinc-400 sm:text-lg">
                 ou envie um e-mail para:
               </p>
-              <span className="text-xl font-semibold break-all text-white sm:text-2xl">
+              <span className="text-base font-semibold break-all text-white sm:text-2xl">
                 contato@produtorareplay.com.br
               </span>
             </div>
@@ -122,27 +128,27 @@ export default function ContactSection() {
               itemRefs.current[2] = element;
             }}
             className={
-              'rounded-2xl border border-zinc-800 bg-zinc-900 p-6 not-italic sm:p-10'
+              'rounded-3xl border border-zinc-800 bg-zinc-900 p-4 not-italic sm:rounded-2xl sm:p-10'
             }
           >
-            <div className="flex flex-col gap-6">
-              <h3 className="text-3xl font-semibold tracking-tight text-white sm:text-4xl">
+            <div className="flex flex-col gap-5 sm:gap-6">
+              <h3 className="text-2xl font-semibold tracking-tight text-white sm:text-4xl">
                 Endereço
               </h3>
 
               <div className="space-y-2">
-                <p className="text-lg font-normal text-zinc-400 sm:text-xl">
+                <p className="text-base font-normal text-zinc-400 sm:text-xl">
                   R. Dr. Leopoldo Guimarães da Cunha, 760 - Oficinas
                 </p>
-                <p className="text-lg font-normal text-zinc-400 sm:text-xl">
+                <p className="text-base font-normal text-zinc-400 sm:text-xl">
                   Ponta Grossa - PR
                 </p>
-                <p className="text-lg font-normal text-zinc-400 sm:text-xl">
+                <p className="text-base font-normal text-zinc-400 sm:text-xl">
                   84035-310
                 </p>
                 <a
                   href="/"
-                  className="inline-flex text-lg font-normal text-zinc-400 underline decoration-1 underline-offset-4 transition-colors hover:text-zinc-200 sm:text-xl"
+                  className="inline-flex text-base font-normal text-zinc-400 underline decoration-1 underline-offset-4 transition-colors hover:text-zinc-200 sm:text-xl"
                 >
                   Ver no mapa
                 </a>

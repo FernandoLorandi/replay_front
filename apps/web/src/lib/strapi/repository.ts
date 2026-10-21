@@ -8,7 +8,7 @@ import { navigationItems as navigationFixtures } from '@/data/fixtures/navigatio
 import { partners as partnerFixtures } from '@/data/fixtures/partners';
 import { projects as projectFixtures } from '@/data/fixtures/projects';
 import { projectCategories } from '@/types/cms';
-import { fetchStrapiJson } from '@/lib/strapi/client';
+import { fetchStrapiJson, isStrapiConfigured } from '@/lib/strapi/client';
 import {
   mapMembersResponse,
   mapNavigationResponse,
@@ -56,7 +56,8 @@ export const getNavigationItems = cache(async () => {
   });
 
   return sortNavigationItems(
-    mapNavigationResponse(payload) ?? navigationFixtures
+    mapNavigationResponse(payload) ??
+      (isStrapiConfigured() ? [] : navigationFixtures)
   );
 });
 
@@ -67,7 +68,7 @@ export const getProjects = cache(async (options: ProjectFetchOptions = {}) => {
     tags: [STRAPI_TAGS.projects],
   });
 
-  return mapProjectsResponse(payload) ?? projectFixtures;
+  return mapProjectsResponse(payload) ?? (isStrapiConfigured() ? [] : projectFixtures);
 });
 
 export const getProjectBySlug = cache(async (slug: string) => {
@@ -82,7 +83,9 @@ export const getProjectBySlug = cache(async (slug: string) => {
     return project;
   }
 
-  return projectFixtures.find((entry) => entry.slug === slug) ?? null;
+  return isStrapiConfigured()
+    ? null
+    : projectFixtures.find((entry) => entry.slug === slug) ?? null;
 });
 
 export const getPartners = cache(async () => {
@@ -91,7 +94,7 @@ export const getPartners = cache(async () => {
     tags: [STRAPI_TAGS.home, STRAPI_TAGS.partners],
   });
 
-  return mapPartnersResponse(payload) ?? partnerFixtures;
+  return mapPartnersResponse(payload) ?? (isStrapiConfigured() ? [] : partnerFixtures);
 });
 
 export const getMembers = cache(async () => {
@@ -100,7 +103,7 @@ export const getMembers = cache(async () => {
     tags: [STRAPI_TAGS.members],
   });
 
-  return mapMembersResponse(payload) ?? memberFixtures;
+  return mapMembersResponse(payload) ?? (isStrapiConfigured() ? [] : memberFixtures);
 });
 
 export async function getHomePageData(): Promise<HomePageData> {

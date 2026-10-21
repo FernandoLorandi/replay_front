@@ -1,7 +1,10 @@
-import { DM_Sans } from 'next/font/google';
+import { DM_Sans, Geist } from 'next/font/google';
 import { ReactNode } from 'react';
 import { Metadata, Viewport } from 'next';
 import './globals.css';
+import { cn } from "@/lib/utils";
+
+const geist = Geist({subsets:['latin'],variable:'--font-sans'});
 
 const dmSans = DM_Sans({
   subsets: ['latin'],
@@ -25,7 +28,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html
       lang="pt-br"
-      className={`${dmSans.variable} w-screen overflow-x-hidden overflow-y-auto`}
+      className={cn("dark", "w-screen", "overflow-x-hidden", "overflow-y-auto", dmSans.variable, "font-sans", geist.variable)}
       data-scroll-behavior="smooth"
     >
       <body className="w-full overflow-x-hidden overflow-y-auto antialiased">

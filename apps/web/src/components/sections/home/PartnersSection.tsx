@@ -8,13 +8,13 @@ type PartnerSectionProps = {
 
 export default function PartnerSection({ partners }: PartnerSectionProps) {
   return (
-    <div className="mx-20 flex items-center justify-between gap-14 border-y border-y-zinc-900 py-6">
-      <div className="w-96">
+    <div className="flex flex-col items-stretch justify-between gap-4 border-y border-y-zinc-800 bg-zinc-900 px-6 py-6 lg:flex-row lg:items-center lg:gap-14 lg:px-20">
+      <div className="w-full max-w-96">
         <h1 className="text-xl leading-7 font-medium tracking-normal text-wrap text-zinc-400">
-          Confiável pelas marcas mais empolgantes do mundo.
+          Reconhecida por grandes marcas.
         </h1>
       </div>
-      <div className="min-w-0 flex-1 overflow-hidden">
+      <div className="w-full min-w-0 overflow-hidden lg:flex-1">
         <PartnersMarquee partners={partners} />
       </div>
     </div>

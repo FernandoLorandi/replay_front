@@ -24,8 +24,7 @@
       "multiple": false,
       "required": true,
       "allowedTypes": [
-        "images",
-        "videos"
+        "images"
       ]
     }
   }
