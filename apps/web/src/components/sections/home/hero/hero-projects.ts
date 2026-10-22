@@ -23,6 +23,18 @@ export function getHeroProjectIndex(
   );
 }
 
+export function getNextHeroProjectIndex(
+  currentIndex: number,
+  direction: -1 | 1,
+  projectCount: number,
+): number {
+  if (projectCount <= 1) {
+    return 0;
+  }
+
+  return (currentIndex + direction + projectCount) % projectCount;
+}
+
 export function shouldAnimateHeroTransition(
   previousIndex: number | null,
   nextIndex: number,

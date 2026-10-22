@@ -8,19 +8,19 @@ export default function CardMember({
   position,
 }: TeamMember) {
   return (
-    <div className="flex flex-col gap-6">
+    <div className="flex flex-col gap-3 sm:gap-6">
       <Image
         src={src}
         alt={alt}
         width={400}
         height={400}
-        className="rounded-lg bg-zinc-800"
+        className="h-auto w-full rounded-lg bg-zinc-800"
       ></Image>
       <div>
-        <h4 className="text-3xl leading-8 font-medium tracking-tighter text-zinc-300">
+        <h4 className="text-2xl leading-7 font-medium tracking-tighter text-zinc-300 sm:text-3xl sm:leading-8">
           {memberName}
         </h4>
-        <p className="text-base leading-6 font-normal tracking-normal text-zinc-400">
+        <p className="text-sm leading-6 font-normal tracking-normal text-zinc-400 sm:text-base">
           {position}
         </p>
       </div>

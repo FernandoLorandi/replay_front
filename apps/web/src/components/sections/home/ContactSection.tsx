@@ -1,6 +1,6 @@
 'use client';
 
-import Button from '@/components/ui/Button';
+import { Button } from '@/components/ui/Button';
 import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
@@ -12,39 +12,42 @@ export default function ContactSection() {
   const sectionRef = useRef<HTMLElement | null>(null);
   const itemRefs = useRef<Array<HTMLElement | null>>([]);
 
-  useGSAP(() => {
-    if (!sectionRef.current) return;
+  useGSAP(
+    () => {
+      if (!sectionRef.current) return;
 
-    const items = itemRefs.current.filter(
-      (item): item is HTMLElement => item !== null,
-    );
-    const media = gsap.matchMedia();
-
-    media.add('(prefers-reduced-motion: no-preference)', () => {
-      gsap.fromTo(
-        items,
-        { autoAlpha: 0, y: 20 },
-        {
-          autoAlpha: 1,
-          y: 0,
-          duration: 0.55,
-          stagger: 0.12,
-          ease: 'power3.out',
-          scrollTrigger: {
-            trigger: sectionRef.current,
-            start: 'top 75%',
-            once: true,
-          },
-        },
+      const items = itemRefs.current.filter(
+        (item): item is HTMLElement => item !== null
       );
-    });
+      const media = gsap.matchMedia();
 
-    return () => media.revert();
-  }, { scope: sectionRef });
+      media.add('(prefers-reduced-motion: no-preference)', () => {
+        gsap.fromTo(
+          items,
+          { autoAlpha: 0, y: 20 },
+          {
+            autoAlpha: 1,
+            y: 0,
+            duration: 0.55,
+            stagger: 0.12,
+            ease: 'power3.out',
+            scrollTrigger: {
+              trigger: sectionRef.current,
+              start: 'top 75%',
+              once: true,
+            },
+          }
+        );
+      });
+
+      return () => media.revert();
+    },
+    { scope: sectionRef }
+  );
 
   return (
     <section
-      id='contato'
+      id="contato"
       ref={sectionRef}
       className="mx-4 mt-10 sm:mx-8 lg:mx-20"
       aria-labelledby="contact-title"
@@ -102,13 +105,16 @@ export default function ContactSection() {
             </h3>
 
             <Button
-              label="Vamos iniciar um projeto"
+              variant="default"
+              size="lg"
+              className="w-full rounded-full px-4 py-2 text-zinc-950 hover:bg-zinc-300 sm:w-fit sm:text-base"
               onClick={() => {}}
-              className="w-full bg-zinc-50 text-lg text-zinc-950 hover:bg-zinc-100 sm:w-fit sm:text-xl"
-            />
+            >
+              Vamos iniciar um projeto
+            </Button>
 
             <div className="flex flex-col gap-2">
-              <p className="text-lg font-normal text-zinc-400 sm:text-xl">
+              <p className="text-base font-normal text-zinc-400 sm:text-lg">
                 ou envie um e-mail para:
               </p>
               <span className="text-xl font-semibold break-all text-white sm:text-2xl">

@@ -7,12 +7,14 @@ import type { ProjectCardProps } from '@/types/projectCards';
 const cardVariantStyles = {
   grid: {
     aspectRatio: '16 / 10',
-    titleClass: 'mt-2 text-5xl font-medium tracking-tight text-white',
+    titleClass:
+      'mt-2 text-3xl font-medium tracking-tight text-white sm:text-5xl',
     widthClass: '',
   },
   reels: {
     aspectRatio: '9 / 16',
-    titleClass: 'mt-2 text-3xl font-medium tracking-tight text-white',
+    titleClass:
+      'mt-2 text-2xl font-medium tracking-tight text-white sm:text-3xl',
     widthClass: 'w-72 min-w-72 shrink-0 sm:w-80 sm:min-w-80 md:w-96 md:min-w-96',
   },
 } as const;
@@ -49,8 +51,8 @@ export default function ProjectCard({
     <button
       type="button"
       data-project-card
-      className={`block overflow-hidden rounded-4xl border border-zinc-900 bg-zinc-950 text-left ${
-        variant === 'reels' ? 'shrink-0' : ''
+      className={`block overflow-hidden rounded-3xl border border-zinc-900 bg-zinc-950 text-left sm:rounded-4xl ${
+        variant === 'reels' ? 'shrink-0' : 'w-full'
       }`}
       aria-label={`Assistir ${project.title}`}
       onClick={onClick}
@@ -92,17 +94,17 @@ export default function ProjectCard({
           )}
 
           <div
-            className={`absolute inset-0 flex flex-col justify-end bg-linear-to-t from-black/90 via-black/35 to-transparent p-6 transition duration-300 ${
+            className={`absolute inset-0 flex flex-col justify-end bg-linear-to-t from-black/90 via-black/35 to-transparent p-4 transition duration-300 sm:p-6 ${
               isHovered
                 ? 'pointer-events-auto opacity-100'
-                : 'pointer-events-none opacity-0'
+                : 'pointer-events-auto opacity-100 md:pointer-events-none md:opacity-0'
             }`}
           >
             <p className="text-sm font-medium text-zinc-300 uppercase">
               {project.category}
             </p>
             <h2 className={styles.titleClass}>{project.title}</h2>
-            <p className="mt-2 max-w-xl text-sm leading-6 text-zinc-400">
+            <p className="mt-2 line-clamp-2 max-w-xl text-sm leading-6 text-zinc-400 sm:line-clamp-none">
               {project.summary}
             </p>
           </div>
