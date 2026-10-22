@@ -43,7 +43,7 @@ export default function PartnersMarquee({ partners }: PartnersMarqueeProps) {
               width={144}
               height={144}
               style={{ objectFit: 'contain', width: 'auto' }}
-              className="h-16 w-auto opacity-50 grayscale sm:h-24 lg:h-36"
+              className="h-16 w-auto opacity-50 grayscale sm:h-24 lg:h-32"
             />
           </div>
         ))}

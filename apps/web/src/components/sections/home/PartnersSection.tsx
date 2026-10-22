@@ -8,7 +8,7 @@ type PartnerSectionProps = {
 
 export default function PartnerSection({ partners }: PartnerSectionProps) {
   return (
-    <div className="flex flex-col items-stretch justify-between gap-4 border-y border-y-zinc-800 bg-zinc-900 px-6 py-6 lg:flex-row lg:items-center lg:gap-14 lg:px-20">
+    <div className="flex flex-col items-stretch justify-between gap-4 border-y border-y-zinc-800 bg-zinc-900 px-6 py-4 lg:flex-row lg:items-center lg:gap-14 lg:px-20">
       <div className="w-full max-w-96">
         <h1 className="text-xl leading-7 font-medium tracking-normal text-wrap text-zinc-400">
           Reconhecida por grandes marcas.
